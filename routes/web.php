@@ -15,3 +15,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 Route::any('/user', 'User\UserController@index');
+Route::any('/add', 'User\UserController@add');
+Route::any('/delete', 'User\UserController@delete');
+Route::any('/update', 'User\UserController@update');
+Route::any('/list', 'User\UserController@userList');
