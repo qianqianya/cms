@@ -48,4 +48,7 @@ class UserController extends Controller
         ];
         return view('user.user',$info);
     }
+    public function ddd(){
+        echo 'sssss';
+    }
 }
