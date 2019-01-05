@@ -19,3 +19,7 @@ Route::any('/add', 'User\UserController@add');
 Route::any('/delete', 'User\UserController@delete');
 Route::any('/update', 'User\UserController@update');
 Route::any('/list', 'User\UserController@userList');
+Route::any('/register', 'User\UserController@register');
+Route::any('/login', 'User\UserController@login');
+Route::any('/center', 'User\UserController@center');
+Route::any('/bst', 'User\MvcController@bst');
