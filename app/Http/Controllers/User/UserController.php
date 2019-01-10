@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-    //查询
+   /* //查询
     public function index()
     {
         $user = UserModel::where('id', '=', 2)->get()->toArray();
@@ -49,7 +49,7 @@ class UserController extends Controller
             'page'=>10
         ];
         return view('user.user',$info);
-    }
+    }*/
 
     /**
      * @param Request $request
@@ -90,8 +90,8 @@ class UserController extends Controller
 
             if ($uid) {
                 echo '注册成功';
-                setcookie('uid',$uid,time()+86400,'/','laravel.com',false,true);
-                return redirect('/login');
+                setcookie('id',$uid,time()+86400,'/','www.shop.com',false,true);
+                header('refresh:2,url=/login');
             } else {
                 echo '注册失败';
             }
@@ -115,10 +115,15 @@ class UserController extends Controller
             if ($res) {
                 if (password_verify($pwd, $res->pwd)) {
                     $token = substr(md5(time().mt_rand(1,99999)),10,10);
-                    setcookie('id',$res->id,time()+86400,'/','laravel.com',false,true);
+                    setcookie('id',$res->id,time()+86400,'/','',false,true);
                     setcookie('token',$token,time()+86400,'/user','',false,true);
-                    header("Refresh:3;url=/center");
+
+
+                    $request->session()->put('u_token',$token);
+                    $request->session()->put('id',$res->id);
+
                     //header("Refresh:3;url=/user/center");
+                    header("Refresh:3;url=/center");
                     echo "登录成功";
                 } else {
                     die("密码不正确");
@@ -133,7 +138,7 @@ class UserController extends Controller
     public function center(Request $request)
     {
 
-        if($_COOKIE['token'] != $request->session()->get('token')){
+       /* if($_COOKIE['token'] != $request->session()->get('token')){
             return("非法请求");
         }else{
             echo '正常请求';
@@ -144,13 +149,21 @@ class UserController extends Controller
         //echo '<pre>';print_r($request->session()->get('u_token'));echo '</pre>';
 
         echo '<pre>';print_r($_COOKIE);echo '</pre>';
-        die;
+        die;*/
         if(empty($_COOKIE['id'])){
             header('Refresh:2;url=/login');
-             return '请先登录';
+             echo '请先登录';exit;
         }else{
             echo 'UID: '.$_COOKIE['id'] . ' 欢迎回来';
         }
+    }
+    public function quit(){
+        setcookie('id',null);
+        setcookie('token',null);
+        request()->session()->pull('u_token',null);
+        request()->session()->pull('id',null);
+        header('refresh:2,url=/login');
+
     }
 
 }
