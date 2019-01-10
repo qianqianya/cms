@@ -61,5 +61,13 @@ Route::any('/cartList','Cart\CartController@index')->middleware('check.login.tok
 //订单
 Route::any('/orderAdd','Order\OrderController@order')->middleware('check.login.token');
 
+//订单详情页面
+Route::any('/orderList','Order\OrderController@orderList')->middleware('check.login.token');
+
+//删除订单
+Route::any('/orderDel/{oid}','Order\OrderController@orderDel')->middleware('check.login.token');
+//支付订单
+Route::any('/orderPay/{oid}','Order\OrderController@orderPay')->middleware('check.login.token');
+
 
 
