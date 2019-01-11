@@ -66,8 +66,10 @@ Route::any('/orderList','Order\OrderController@orderList')->middleware('check.lo
 
 //删除订单
 Route::any('/orderDel/{oid}','Order\OrderController@orderDel')->middleware('check.login.token');
+
 //支付订单
 Route::any('/orderPay/{oid}','Order\OrderController@orderPay')->middleware('check.login.token');
+Route::any('/pay','Order\OrderController@pay');
 
 
 
